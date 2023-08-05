@@ -11,10 +11,11 @@ void time(int choice, int input, FILE *fp);
 
 int main()
 {
-    FILE *fp = fopen("/time.txt", "a");
+    FILE *fp = fopen("time.txt", "a");
     if (fp == NULL)
     {
-        printf("File could not be opened.\n");
+        printf("File Created!.\n");
+        fp = fopen("time.txt", "w");
         return 1;
     }
     
@@ -37,7 +38,7 @@ int main()
             case 6:
                 printf("Clearing File\n");
                 fclose(fp);
-                fp = fopen("/Users/mark/Code/Testing/image/one.txt", "w");
+                fp = fopen("time.txt", "w");
                 if (fp == NULL)
                 {
                     printf("File could not be cleared.\n");
@@ -54,7 +55,7 @@ int main()
         }
         
         clearConsole();
-        fp = fopen("image/one.txt", "a");
+        fp = fopen("time.txt", "a");
         
     } while (1);
 
