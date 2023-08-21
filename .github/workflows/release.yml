@@ -26,17 +26,17 @@ jobs:
       
     - name: Get current timestamp
       id: timestamp
-      run: echo "::set-output name=timestamp::$(date +%Y%m%d%H%M%S)"
+      run: echo "TIMESTAMP=$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
       
     - name: Get previous release tag
       id: prev_release
-      run: echo "::set-output name=prev_tag::$(git describe --tags --abbrev=0)"
+      run: echo "PREV_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
       
     - name: Get commit messages since previous release
       id: commit_messages
       run: |
-        git log --pretty=format:"%s" ${{ steps.prev_release.outputs.prev_tag }}..HEAD > commit_messages.txt
-        echo "::set-output name=messages::$(cat commit_messages.txt)"
+        COMMIT_MESSAGES=$(git log --pretty=format:"%s" $PREV_TAG..HEAD)
+        echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
       
     - name: Create release
       id: create_release
@@ -45,11 +45,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: ./
-        tag_name: v${{ steps.timestamp.outputs.timestamp }}
-        release_name: Release ${{ steps.timestamp.outputs.timestamp }}
+        tag_name: v${{ env.TIMESTAMP }}
+        release_name: Release ${{ env.TIMESTAMP }}
         draft: false
         prerelease: false
         body: |
-          Changes from ${{ steps.prev_release.outputs.prev_tag }} to v${{ steps.timestamp.outputs.timestamp }}:
+          Changes from ${{ env.PREV_TAG }} to v${{ env.TIMESTAMP }}:
           
-          ${{ steps.commit_messages.outputs.messages }}
+          ${{ env.COMMIT_MESSAGES }}
