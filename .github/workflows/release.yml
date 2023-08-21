@@ -24,6 +24,10 @@ jobs:
     - name: Make C
       run: make
       
+    - name: Get current timestamp
+      id: timestamp
+      run: echo "::set-output name=timestamp::$(date +%Y%m%d%H%M%S)"
+      
     - name: Create release
       id: create_release
       uses: actions/create-release@v1
@@ -31,7 +35,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: ./
-        tag_name: v1.0.0
-        release_name: Release 1.0.0
+        tag_name: v${{ steps.timestamp.outputs.timestamp }}
+        release_name: Release ${{ steps.timestamp.outputs.timestamp }}
         draft: false
         prerelease: false
