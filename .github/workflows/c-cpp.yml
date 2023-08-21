@@ -35,15 +35,11 @@ jobs:
 
     - name: Upload Release Asset
       run: |
-        upload_url=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID" \
-          | jq -r '.upload_url' | cut -d "{" -f 1)
-        upload_url="${upload_url}?name=main"
+        upload_url="https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.release_id }}/assets?name=main"
         
         curl -X POST -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "Content-Type: application/octet-stream" \
           --data-binary @main "$upload_url"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE_ID: ${{ steps.create_release.outputs.release_id }}
+
