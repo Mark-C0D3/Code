@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: 1
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: 2
       uses: actions/setup-node@v2
 
-    - name: Compile main.c
+    - name: 3
       run: gcc -o main main.c
       working-directory: ${{ github.workspace }}
 
-    - name: Run Expect script
+    - name: 4
       run: echo "7\n" | ./main
       working-directory: ${{ github.workspace }}
 
-    - name: Create Release
+    - name: 5
       id: create_release
       run: |
         response=$(curl -X POST -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -35,7 +35,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Upload Release Asset
+    - name: 6
       run: |
         upload_url="https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.release_id }}/assets?name=main"
         
