@@ -1,5 +1,5 @@
-#ifndef TIME_H
-#define TIME_H
+#ifndef SORT_TIME_H
+#define SORT_TIME_H
 
 // Sekunden in ...
 int s_to_m(int sekunden) { return sekunden / 60; }
