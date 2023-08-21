@@ -3,6 +3,7 @@
 #include "time.h"
 
 
+// NEW
 void clearConsole()
 {
     system("clear");
