@@ -28,6 +28,16 @@ jobs:
       id: timestamp
       run: echo "::set-output name=timestamp::$(date +%Y%m%d%H%M%S)"
       
+    - name: Get previous release tag
+      id: prev_release
+      run: echo "::set-output name=prev_tag::$(git describe --tags --abbrev=0)"
+      
+    - name: Get commit messages since previous release
+      id: commit_messages
+      run: |
+        git log --pretty=format:"%s" ${{ steps.prev_release.outputs.prev_tag }}..HEAD > commit_messages.txt
+        echo "::set-output name=messages::$(cat commit_messages.txt)"
+      
     - name: Create release
       id: create_release
       uses: actions/create-release@v1
@@ -39,3 +49,7 @@ jobs:
         release_name: Release ${{ steps.timestamp.outputs.timestamp }}
         draft: false
         prerelease: false
+        body: |
+          Changes since previous release (${{ steps.prev_release.outputs.prev_tag }}):
+          
+          ${{ steps.commit_messages.outputs.messages }}

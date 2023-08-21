@@ -7,7 +7,7 @@ void clearConsole()
     system("clear");
 }
 
-// TIME FUNCTION
+// TIME FUNCTION A
 
 void time(int choice, int input, FILE *fp);
 
