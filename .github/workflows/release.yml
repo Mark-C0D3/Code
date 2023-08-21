@@ -50,6 +50,6 @@ jobs:
         draft: false
         prerelease: false
         body: |
-          Changes since previous release (${{ steps.prev_release.outputs.prev_tag }}):
+          Changes from ${{ steps.prev_release.outputs.prev_tag }} to v${{ steps.timestamp.outputs.timestamp }}:
           
           ${{ steps.commit_messages.outputs.messages }}
