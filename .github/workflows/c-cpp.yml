@@ -20,7 +20,7 @@ jobs:
       run: ./main
       
     - name: Run main with input from file
-      run: echo "7" | ./main
+      run: send "7\n" | ./main
 
     - name: Create Release
       id: create_release
