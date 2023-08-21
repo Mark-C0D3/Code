@@ -21,11 +21,21 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Generate release name and tag
-      id: release_info
+    - name: Get the latest release version
+      id: get_latest_version
       run: |
-        echo "RELEASE_NAME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-        echo "RELEASE_TAG=v$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+        LAST_VERSION=$(git tag -l 'V*' --sort=-v:refname | head -n 1)
+        if [ -z "$LAST_VERSION" ]; then
+          LAST_VERSION="V0"
+        fi
+        echo "LAST_VERSION=$LAST_VERSION" >> $GITHUB_ENV
+        
+    - name: Increment the release version
+      id: increment_version
+      run: |
+        PREVIOUS_VERSION=$LAST_VERSION
+        LAST_VERSION="V$(( ${PREVIOUS_VERSION#"V"} + 1 ))"
+        echo "LAST_VERSION=$LAST_VERSION" >> $GITHUB_ENV
         
     - name: Create release
       id: create_release
@@ -33,8 +43,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.release_info.outputs.RELEASE_TAG }}
-        release_name: ${{ steps.release_info.outputs.RELEASE_NAME }}
+        tag_name: ${{ steps.increment_version.outputs.LAST_VERSION }}
+        release_name: ${{ steps.increment_version.outputs.LAST_VERSION }}
         draft: false
         prerelease: false
         commitish: ${{ github.sha }}
