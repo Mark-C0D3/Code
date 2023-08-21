@@ -18,9 +18,9 @@ jobs:
 
     - name: Run Expect script
       run: |
-        chmod +x ./input_script.exp
+        chmod +x input_script.exp
         ./input_script.exp
-        
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
