@@ -18,8 +18,8 @@ jobs:
 
     - name: Run Expect script
       run: |
-        chmod +x input_script.exp
-        ./input_script.exp
+        chmod +x "${{ github.workspace }}"/.github/workflows/input_script.exp
+        "${{ github.workspace }}"/.github/workflows/input_script.exp
 
     - name: Create Release
       id: create_release
@@ -37,6 +37,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./main
+        asset_path: "${{ github.workspace }}/main"
         asset_name: main
         asset_content_type: application/octet-stream
