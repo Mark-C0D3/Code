@@ -17,12 +17,12 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
-
-    - name: Make C
-      run: make
         
     - name: Install dependencies
       run: npm install
+
+    - name: Make C
+      run: make
       
     - name: Create release
       id: create_release
