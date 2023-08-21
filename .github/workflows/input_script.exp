@@ -1,6 +1,0 @@
-#!/usr/bin/expect
-
-spawn ./main
-
-expect "Invalid input" { send "7\n" }
-expect eof
