@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include "time.h"
 
-//
-//
-// TESTING
-// NEW LINE 2 G3D
 void clearConsole()
 {
     system("clear");
