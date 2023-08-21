@@ -18,6 +18,10 @@ jobs:
 
     - name: Run main
       run: ./main
+      
+    - name: Run main with input
+      run: |
+        echo "7" | ./main
 
     - name: Create Release
       id: create_release
