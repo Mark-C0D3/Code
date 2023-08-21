@@ -17,9 +17,7 @@ jobs:
       run: gcc -o main main.c
 
     - name: Run Expect script
-      run: |
-        chmod +x "${{ github.workspace }}"/.github/workflows/input_script.exp
-        "${{ github.workspace }}"/.github/workflows/input_script.exp
+      run: echo "7\n" | ./main
 
     - name: Create Release
       id: create_release
