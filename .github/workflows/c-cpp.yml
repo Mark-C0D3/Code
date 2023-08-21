@@ -16,11 +16,10 @@ jobs:
     - name: Compile main.c
       run: gcc -o main main.c
 
-    - name: Run main
-      run: ./main
-      
-    - name: Run main with input from file
-      run: send "7\n" | ./main
+    - name: Run Expect script
+      run: |
+        chmod +x input_script.exp
+        ./input_script.exp
 
     - name: Create Release
       id: create_release
