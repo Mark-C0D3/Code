@@ -3,7 +3,7 @@
 #include "time.h"
 
 
-// NEW LINE 2 G3
+// NEW LINE 2 G3D
 void clearConsole()
 {
     system("clear");
