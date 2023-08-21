@@ -19,7 +19,7 @@ jobs:
         node-version: '14'
 
     - name: Make C
-      run: ./make
+      run: make
         
     - name: Install dependencies
       run: npm install
