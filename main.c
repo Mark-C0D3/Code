@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "time.h"
 
-
-// NEW LINE 2
 void clearConsole()
 {
     system("clear");
